@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+/* Custom CSS Variables for easy theming */
+:root {
+  --color-primary: #1152d4;
+  --color-bg-light: #f6f6f8;
+  --color-bg-dark: #101622;
+  --color-text-dark: #111318;
+  --color-text-light: #ffffff;
+  --color-text-muted: #616f89;
+  --color-border-light: #e5e5e5;
+  --color-border-dark: #1f2937;
+}
+
+/* Material Symbols Icon Settings */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

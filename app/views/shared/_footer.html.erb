@@ -1,0 +1,14 @@
+<footer class="flex flex-col gap-6 px-5 py-10 text-center border-t border-solid border-gray-200 dark:border-gray-800 mt-16">
+  <div class="flex flex-wrap justify-center gap-6">
+    <a class="text-[#616f89] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#" aria-label="Instagram">
+      <span class="material-symbols-outlined">camera_roll</span>
+    </a>
+    <a class="text-[#616f89] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#" aria-label="Community">
+      <span class="material-symbols-outlined">group</span>
+    </a>
+    <%= link_to new_contact_path, class: "text-[#616f89] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors", "aria-label": "Contact" do %>
+      <span class="material-symbols-outlined">mail</span>
+    <% end %>
+  </div>
+  <p class="text-[#616f89] dark:text-gray-500 text-sm font-normal leading-normal">© <%= Time.current.year %> <%= Artist.instance.name %>. All Rights Reserved.</p>
+</footer>
