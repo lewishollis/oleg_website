@@ -21,8 +21,12 @@ puts "Password: password123"
 # Create artist profile
 puts "\nCreating artist profile..."
 artist = Artist.create!(
-  name: "Oleg Artist",
-  bio: "Oleg is a contemporary artist working across multiple mediums including painting, sculpture, and digital art. Their work explores themes of identity, memory, and the intersection of technology and humanity. With exhibitions in galleries worldwide, Oleg continues to push the boundaries of contemporary artistic expression."
+  name: "Oleg Vance",
+  bio: "My work is an exploration of the interplay between memory and perception, a visual diary of moments that are both deeply personal and universally resonant. I seek to capture the fleeting, ephemeral qualities of light and shadow, translating them onto canvas not as a direct representation, but as an emotional echo. The process is a meditative one, building layers of oil and cold wax to create a history within the piece, a textured landscape that invites the viewer to look closer and find their own narrative within the abstract forms.
+
+Born and raised in the quiet countryside, I developed a profound connection with the natural world, its cycles of growth and decay, its subtle shifts in color and mood. This early influence continues to shape my artistic philosophy. I believe that art is not about creating something from nothing, but about revealing the extraordinary that already exists within the ordinary. It's about paying attention, about seeing the world with a heightened sense of awareness and translating that vision into a tangible form.
+
+Each painting is a conversation between intention and accident. While I begin with a concept, I remain open to the unexpected discoveries that arise as I work. It is in this dance between control and surrender that the most authentic expressions emerge. My hope is that my work offers a space for contemplation, a quiet moment for viewers to connect with their own inner landscapes and find a sense of peace and recognition in the shared human experience."
 )
 puts "Artist created: #{artist.name}"
 
