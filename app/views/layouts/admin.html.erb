@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin - <%= content_for(:title) || "Oleg Portfolio" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-100">
+    <nav class="bg-white shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <div class="flex-shrink-0 flex items-center">
+              <%= link_to "Admin Dashboard", admin_root_path, class: "text-xl font-bold text-gray-800" %>
+            </div>
+            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+              <%= link_to "Projects", admin_projects_path, class: "inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900" %>
+              <%= link_to "Artworks", admin_artworks_path, class: "inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900" %>
+              <%= link_to "Artist Info", edit_admin_artist_path, class: "inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900" %>
+              <%= link_to "Messages", admin_contact_inquiries_path, class: "inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900" %>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <%= link_to "View Site", root_path, class: "mr-4 text-sm text-gray-700 hover:text-gray-900", target: "_blank" %>
+            <%= button_to "Sign Out", destroy_admin_user_session_path, method: :delete, class: "text-sm text-gray-700 hover:text-gray-900" %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <% if notice.present? %>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+          <%= notice %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <%= alert %>
+        </div>
+      </div>
+    <% end %>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <%= yield %>
+    </main>
+  </body>
+</html>

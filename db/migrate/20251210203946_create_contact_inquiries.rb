@@ -1,0 +1,13 @@
+class CreateContactInquiries < ActiveRecord::Migration[8.0]
+  def change
+    create_table :contact_inquiries do |t|
+      t.string :name
+      t.string :email
+      t.string :subject
+      t.text :message
+      t.boolean :read
+
+      t.timestamps
+    end
+  end
+end
