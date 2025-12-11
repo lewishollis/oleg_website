@@ -1,4 +1,72 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Artists#edit</h1>
-  <p>Find me in app/views/admin/artists/edit.html.erb</p>
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+  <div class="w-full max-w-2xl">
+    <!-- Page Heading -->
+    <div class="mb-8 text-center">
+      <h1 class="text-4xl font-black text-gray-900 dark:text-white leading-tight tracking-[-0.033em]">Artist Profile</h1>
+      <p class="mt-2 text-base text-gray-600 dark:text-gray-400">Update your profile information and image</p>
+    </div>
+
+    <!-- Form Container -->
+    <%= form_with model: [:admin, @artist], url: admin_artist_path, method: :patch, local: true, class: "rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 shadow-sm p-6 sm:p-8 space-y-6" do |f| %>
+
+      <!-- Profile Image Uploader -->
+      <div class="flex flex-col">
+        <div class="flex flex-col items-center gap-4 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700 p-8 text-center">
+          <div class="rounded-full bg-primary/10 p-3">
+            <span class="material-symbols-outlined text-primary text-3xl">person</span>
+          </div>
+          <div class="flex flex-col items-center gap-1">
+            <p class="text-lg font-bold text-gray-900 dark:text-white">Profile Image</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Upload your artist portrait</p>
+            <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">PNG, JPG up to 10MB</p>
+          </div>
+
+          <%= f.file_field :profile_image,
+              accept: "image/*",
+              class: "mt-2 block w-full text-sm text-gray-900 dark:text-gray-200
+                     file:mr-4 file:py-2 file:px-4
+                     file:rounded-lg file:border-0
+                     file:text-sm file:font-bold
+                     file:bg-gray-100 dark:file:bg-gray-800
+                     file:text-gray-800 dark:file:text-gray-200
+                     hover:file:bg-gray-200 dark:hover:file:bg-gray-700
+                     file:cursor-pointer file:transition-colors" %>
+
+          <% if @artist.profile_image.attached? %>
+            <div class="mt-4 w-full">
+              <%= image_tag @artist.profile_image.variant(resize_to_limit: [400, 400]),
+                  class: "mx-auto rounded-lg shadow-md max-h-80 object-cover" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Artist Name -->
+      <div class="w-full">
+        <%= f.label :name, "Artist Name", class: "text-base font-medium text-gray-800 dark:text-gray-200 pb-2 block" %>
+        <%= f.text_field :name,
+            placeholder: "Enter your name",
+            class: "form-input w-full rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-primary focus:ring-primary h-12 px-4 text-base font-normal leading-normal" %>
+      </div>
+
+      <!-- Artist Bio -->
+      <div class="w-full">
+        <%= f.label :bio, "Artist Bio", class: "text-base font-medium text-gray-800 dark:text-gray-200 pb-2 block" %>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Separate paragraphs with double line breaks (press Enter twice)</p>
+        <%= f.text_area :bio,
+            placeholder: "Write your artist statement and biography...",
+            rows: 12,
+            class: "form-textarea w-full rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-primary focus:ring-primary p-4 text-base font-normal leading-normal" %>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row-reverse gap-3 pt-4 border-t border-gray-200 dark:border-gray-800">
+        <%= f.submit 'Update Profile',
+            class: "flex w-full sm:w-auto items-center justify-center rounded-lg h-11 px-6 bg-primary text-white text-base font-bold leading-normal tracking-wide shadow-sm hover:bg-primary/90 transition-colors cursor-pointer" %>
+        <%= link_to "Back to Dashboard",
+            admin_root_path,
+            class: "flex w-full sm:w-auto items-center justify-center rounded-lg h-11 px-6 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-base font-bold leading-normal tracking-wide hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" %>
+      </div>
+    <% end %>
+  </div>
 </div>
