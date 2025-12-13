@@ -1,4 +1,43 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::ContactInquiries#index</h1>
-  <p>Find me in app/views/admin/contact_inquiries/index.html.erb</p>
+<div class="px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header -->
+  <div class="sm:flex sm:items-center sm:justify-between mb-8">
+    <div>
+      <h1 class="text-4xl font-black text-gray-900 dark:text-white leading-tight tracking-[-0.033em]">Contact Inquiries</h1>
+      <p class="mt-2 text-base text-gray-600 dark:text-gray-400">Manage messages from your contact form</p>
+    </div>
+  </div>
+
+  <!-- Inquiries List -->
+  <% if @inquiries.any? %>
+    <div class="space-y-4">
+      <% @inquiries.each do |inquiry| %>
+        <%= link_to admin_contact_inquiry_path(inquiry), class: "block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 shadow-sm hover:shadow-md transition-shadow p-6" do %>
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white"><%= inquiry.name %></h3>
+                <% unless inquiry.read? %>
+                  <span class="inline-flex items-center rounded-full bg-[#1152d4] px-2.5 py-0.5 text-xs font-bold text-white">New</span>
+                <% end %>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2"><%= inquiry.email %></p>
+              <p class="text-base text-gray-700 dark:text-gray-300 line-clamp-2"><%= inquiry.message %></p>
+            </div>
+            <div class="ml-4 flex-shrink-0">
+              <p class="text-sm text-gray-500 dark:text-gray-400"><%= time_ago_in_words(inquiry.created_at) %> ago</p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <!-- Empty State -->
+    <div class="text-center py-12 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-700">
+      <div class="rounded-full bg-gray-100 dark:bg-gray-800 w-16 h-16 flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-gray-400 text-3xl">mail</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">No inquiries yet</h3>
+      <p class="text-gray-600 dark:text-gray-400">Contact form submissions will appear here</p>
+    </div>
+  <% end %>
 </div>

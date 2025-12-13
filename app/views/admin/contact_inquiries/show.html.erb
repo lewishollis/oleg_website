@@ -1,4 +1,47 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::ContactInquiries#show</h1>
-  <p>Find me in app/views/admin/contact_inquiries/show.html.erb</p>
+<div class="px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <%= link_to admin_contact_inquiries_path, class: "inline-flex items-center text-[#1152d4] hover:underline mb-4" do %>
+      <span class="material-symbols-outlined mr-1">arrow_back</span>
+      Back to Inquiries
+    <% end %>
+    <h1 class="text-4xl font-black text-gray-900 dark:text-white leading-tight tracking-[-0.033em]">Contact Inquiry</h1>
+  </div>
+
+  <!-- Inquiry Details -->
+  <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 shadow-sm p-6 sm:p-8">
+    <!-- Metadata -->
+    <div class="flex items-center justify-between mb-6 pb-6 border-b border-gray-200 dark:border-gray-800">
+      <div>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Received <%= time_ago_in_words(@inquiry.created_at) %> ago</p>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mt-1"><%= @inquiry.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+      </div>
+      <% if @inquiry.read? %>
+        <span class="inline-flex items-center rounded-full bg-gray-200 dark:bg-gray-700 px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300">Read</span>
+      <% else %>
+        <span class="inline-flex items-center rounded-full bg-[#1152d4] px-3 py-1 text-sm font-bold text-white">New</span>
+      <% end %>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="space-y-4 mb-8">
+      <div>
+        <label class="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-1">Name</label>
+        <p class="text-lg font-bold text-gray-900 dark:text-white"><%= @inquiry.name %></p>
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-1">Email</label>
+        <a href="mailto:<%= @inquiry.email %>" class="text-lg font-medium text-[#1152d4] hover:underline"><%= @inquiry.email %></a>
+      </div>
+    </div>
+
+    <!-- Message -->
+    <div>
+      <label class="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-2">Message</label>
+      <div class="rounded-lg bg-gray-50 dark:bg-gray-800/50 p-6">
+        <p class="text-base text-gray-900 dark:text-white whitespace-pre-wrap"><%= @inquiry.message %></p>
+      </div>
+    </div>
+  </div>
 </div>
