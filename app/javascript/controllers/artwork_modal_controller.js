@@ -4,15 +4,17 @@ export default class extends Controller {
   static targets = ["modal", "image", "title", "description", "medium", "year"]
 
   open(event) {
-    const { artworkModalTitleParam, artworkModalDescriptionParam, artworkModalMediumParam, artworkModalYearParam, artworkModalImageParam } = event.params
+    const { title, description, medium, year, image } = event.params
 
-    this.titleTarget.textContent = artworkModalTitleParam
+    console.log('Modal opening with params:', { title, description, medium, year, image })
+
+    this.titleTarget.textContent = title
 
     // Format description with paragraph breaks
-    const description = artworkModalDescriptionParam || "No description available."
+    const desc = description || "No description available."
 
     // Split by double line breaks (handle both \n\n and \r\n\r\n)
-    const paragraphs = description
+    const paragraphs = desc
       .split(/\n\s*\n/)
       .map(p => p.trim())
       .filter(p => p.length > 0)
@@ -21,10 +23,10 @@ export default class extends Controller {
 
     this.descriptionTarget.innerHTML = paragraphs
 
-    this.mediumTarget.textContent = artworkModalMediumParam || ""
-    this.yearTarget.textContent = artworkModalYearParam || ""
-    this.imageTarget.src = artworkModalImageParam
-    this.imageTarget.alt = artworkModalTitleParam
+    this.mediumTarget.textContent = medium || ""
+    this.yearTarget.textContent = year || ""
+    this.imageTarget.src = image
+    this.imageTarget.alt = title
 
     this.modalTarget.classList.remove("hidden")
     document.body.style.overflow = "hidden"
