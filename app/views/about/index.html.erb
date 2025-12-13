@@ -42,10 +42,8 @@
       <h1 class="text-gray-900 dark:text-white tracking-tight text-4xl md:text-5xl font-bold leading-tight text-left pb-4">About the Artist</h1>
 
       <!-- Bio Text -->
-      <div class="space-y-6 text-gray-700 dark:text-gray-300">
-        <% artist.bio.split("\n\n").each do |paragraph| %>
-          <p class="text-base font-normal leading-relaxed"><%= paragraph.strip %></p>
-        <% end %>
+      <div class="space-y-6 text-gray-700 dark:text-gray-300 text-base font-normal leading-relaxed">
+        <%= simple_format(artist.bio, class: "mb-4 last:mb-0") %>
       </div>
 
       <!-- Press / CV Section -->

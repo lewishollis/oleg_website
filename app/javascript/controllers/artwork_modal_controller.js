@@ -7,7 +7,20 @@ export default class extends Controller {
     const { artworkModalTitleParam, artworkModalDescriptionParam, artworkModalMediumParam, artworkModalYearParam, artworkModalImageParam } = event.params
 
     this.titleTarget.textContent = artworkModalTitleParam
-    this.descriptionTarget.textContent = artworkModalDescriptionParam || "No description available."
+
+    // Format description with paragraph breaks
+    const description = artworkModalDescriptionParam || "No description available."
+
+    // Split by double line breaks (handle both \n\n and \r\n\r\n)
+    const paragraphs = description
+      .split(/\n\s*\n/)
+      .map(p => p.trim())
+      .filter(p => p.length > 0)
+      .map(p => `<p class="mb-4 last:mb-0">${this.escapeHtml(p)}</p>`)
+      .join("")
+
+    this.descriptionTarget.innerHTML = paragraphs
+
     this.mediumTarget.textContent = artworkModalMediumParam || ""
     this.yearTarget.textContent = artworkModalYearParam || ""
     this.imageTarget.src = artworkModalImageParam
@@ -15,6 +28,12 @@ export default class extends Controller {
 
     this.modalTarget.classList.remove("hidden")
     document.body.style.overflow = "hidden"
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement('div')
+    div.textContent = text
+    return div.innerHTML
   }
 
   close() {
