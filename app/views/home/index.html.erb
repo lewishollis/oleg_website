@@ -5,38 +5,36 @@
 
 <!-- Filter Chips -->
 <div class="flex gap-2 p-3 overflow-x-auto">
-  <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary text-white pl-4 pr-4">
+  <%= link_to root_path, class: "flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 transition-colors #{params[:project_id].blank? ? 'bg-primary text-white' : 'bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-[#111318] dark:text-gray-300'}" do %>
     <p class="text-sm font-medium leading-normal">All</p>
-  </button>
+  <% end %>
   <% Project.published.by_position.each do |project| %>
-    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors pl-4 pr-4">
-      <p class="text-[#111318] dark:text-gray-300 text-sm font-medium leading-normal"><%= project.title %></p>
-    </button>
+    <%= link_to root_path(project_id: project.id), class: "flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 transition-colors #{params[:project_id].to_i == project.id ? 'bg-primary text-white' : 'bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-[#111318] dark:text-gray-300'}" do %>
+      <p class="text-sm font-medium leading-normal"><%= project.title %></p>
+    <% end %>
   <% end %>
 </div>
 
 <!-- Artworks Grid -->
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-  <% @projects.each do |project| %>
-    <% project.artworks.each do |artwork| %>
-      <%= link_to project_path(project), class: "group" do %>
-        <div class="flex flex-col gap-3 pb-3">
-          <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg overflow-hidden transform transition-transform duration-300 group-hover:scale-105 bg-gray-200 dark:bg-gray-800">
-            <% if artwork.image.attached? %>
-              <%= image_tag artwork.image.variant(resize_to_fill: [400, 533]),
-                  alt: artwork.title,
-                  loading: "lazy",
-                  class: "w-full h-full object-cover" %>
-            <% end %>
-          </div>
-          <div>
-            <p class="text-[#111318] dark:text-white text-base font-medium leading-normal"><%= artwork.title %></p>
-            <p class="text-[#616f89] dark:text-gray-400 text-sm font-normal leading-normal">
-              <%= artwork.year %><%= ", #{artwork.medium}" if artwork.medium.present? %>
-            </p>
-          </div>
+  <% @artworks.each do |artwork| %>
+    <%= link_to project_path(artwork.project), class: "group" do %>
+      <div class="flex flex-col gap-3 pb-3">
+        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg overflow-hidden transform transition-transform duration-300 group-hover:scale-105 bg-gray-200 dark:bg-gray-800">
+          <% if artwork.image.attached? %>
+            <%= image_tag artwork.image.variant(resize_to_fill: [400, 533]),
+                alt: artwork.title,
+                loading: "lazy",
+                class: "w-full h-full object-cover" %>
+          <% end %>
         </div>
-      <% end %>
+        <div>
+          <p class="text-[#111318] dark:text-white text-base font-medium leading-normal"><%= artwork.title %></p>
+          <p class="text-[#616f89] dark:text-gray-400 text-sm font-normal leading-normal">
+            <%= artwork.year %><%= ", #{artwork.medium}" if artwork.medium.present? %>
+          </p>
+        </div>
+      </div>
     <% end %>
   <% end %>
 </div>
