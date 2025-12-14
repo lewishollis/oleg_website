@@ -1,4 +1,83 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Dashboard#index</h1>
-  <p>Find me in app/views/admin/dashboard/index.html.erb</p>
+<div class="relative flex min-h-screen w-full">
+  <%= render 'admin/shared/sidebar' %>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Page Heading -->
+      <div class="flex flex-wrap justify-between gap-3 mb-8">
+        <div class="flex min-w-72 flex-col gap-2">
+          <p class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Welcome, <%= Artist.instance.name %></p>
+          <p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">Here's an overview of your website activity.</p>
+        </div>
+      </div>
+
+      <!-- Action Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Add New Piece Card -->
+        <div class="flex flex-col gap-3 p-4 bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800">
+          <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg bg-gradient-to-br from-blue-400 to-blue-600"></div>
+          <div class="flex flex-col flex-grow">
+            <p class="text-gray-900 dark:text-white text-base font-medium leading-normal">Add a New Piece</p>
+            <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal mt-1 flex-grow">Upload images and add details for your latest work.</p>
+            <%= link_to "Upload Artwork", new_admin_artwork_path, class: "text-[#1152d4] dark:text-[#1152d4]/90 text-sm font-medium leading-normal mt-3 hover:underline" %>
+          </div>
+        </div>
+
+        <!-- Manage Artwork Card -->
+        <div class="flex flex-col gap-3 p-4 bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800">
+          <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg bg-gradient-to-br from-purple-400 to-pink-500"></div>
+          <div class="flex flex-col flex-grow">
+            <p class="text-gray-900 dark:text-white text-base font-medium leading-normal">Manage Artwork</p>
+            <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal mt-1 flex-grow">You have <%= @artworks_count %> pieces online. Edit details, add comments, or remove artworks.</p>
+            <%= link_to "View Collection", admin_artworks_path, class: "text-[#1152d4] dark:text-[#1152d4]/90 text-sm font-medium leading-normal mt-3 hover:underline" %>
+          </div>
+        </div>
+
+        <!-- Inbox Card -->
+        <div class="flex flex-col gap-3 p-4 bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800">
+          <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg bg-gradient-to-br from-orange-400 to-red-500"></div>
+          <div class="flex flex-col flex-grow">
+            <p class="text-gray-900 dark:text-white text-base font-medium leading-normal">Inbox</p>
+            <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal mt-1 flex-grow">
+              <% if @unread_inquiries_count > 0 %>
+                You have <%= @unread_inquiries_count %> unread <%= 'message'.pluralize(@unread_inquiries_count) %>.
+              <% else %>
+                No new messages.
+              <% end %>
+            </p>
+            <%= link_to "View Messages", admin_contact_inquiries_path, class: "text-[#1152d4] dark:text-[#1152d4]/90 text-sm font-medium leading-normal mt-3 hover:underline" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity Section -->
+      <h2 class="text-gray-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] pt-10 pb-4">Recent Activity</h2>
+
+      <div class="flex flex-col bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 divide-y divide-gray-200 dark:divide-gray-800">
+        <% if @recent_inquiries.any? %>
+          <% @recent_inquiries.each do |inquiry| %>
+            <%= link_to admin_contact_inquiry_path(inquiry), class: "flex items-center gap-4 p-4 min-h-[72px] justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" do %>
+              <div class="flex items-center gap-4">
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-white text-xl">person</span>
+                </div>
+                <div class="flex flex-col justify-center">
+                  <p class="text-gray-900 dark:text-white text-base font-medium leading-normal line-clamp-1">New message from <%= inquiry.name %></p>
+                  <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal line-clamp-2"><%= inquiry.message.truncate(60) %></p>
+                </div>
+              </div>
+              <div class="shrink-0">
+                <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal"><%= time_ago_in_words(inquiry.created_at) %> ago</p>
+              </div>
+            <% end %>
+          <% end %>
+        <% else %>
+          <div class="flex items-center justify-center p-8">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">No recent activity</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </main>
 </div>

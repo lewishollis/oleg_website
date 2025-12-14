@@ -1,0 +1,45 @@
+<aside class="flex h-screen w-64 flex-col border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark sticky top-0">
+  <div class="flex h-full flex-col justify-between p-4">
+    <div class="flex flex-col gap-4">
+      <!-- Admin Profile -->
+      <div class="flex gap-3 items-center p-2">
+        <% artist = Artist.instance %>
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 bg-gray-200 dark:bg-gray-700">
+          <% if artist.profile_image.attached? %>
+            <%= image_tag artist.profile_image.variant(resize_to_fill: [40, 40]), class: "w-full h-full rounded-full object-cover", alt: artist.name %>
+          <% end %>
+        </div>
+        <div class="flex flex-col">
+          <h1 class="text-gray-900 dark:text-gray-100 text-base font-medium leading-normal"><%= artist.name %></h1>
+          <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Admin</p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex flex-col gap-2 mt-4">
+        <%= link_to admin_root_path, class: "flex items-center gap-3 px-3 py-2 rounded-lg #{current_page?(admin_root_path) ? 'bg-[#1152d4]/10 dark:bg-[#1152d4]/20' : 'hover:bg-gray-100 dark:hover:bg-white/10'}" do %>
+          <span class="material-symbols-outlined <%= current_page?(admin_root_path) ? 'text-[#1152d4]' : 'text-gray-700 dark:text-gray-300' %>">dashboard</span>
+          <p class="<%= current_page?(admin_root_path) ? 'text-[#1152d4]' : 'text-gray-700 dark:text-gray-300' %> text-sm font-medium leading-normal">Dashboard</p>
+        <% end %>
+
+        <%= link_to admin_artworks_path, class: "flex items-center gap-3 px-3 py-2 rounded-lg #{current_page?(admin_artworks_path) || current_page?(admin_projects_path) ? 'bg-[#1152d4]/10 dark:bg-[#1152d4]/20' : 'hover:bg-gray-100 dark:hover:bg-white/10'}" do %>
+          <span class="material-symbols-outlined <%= current_page?(admin_artworks_path) || current_page?(admin_projects_path) ? 'text-[#1152d4]' : 'text-gray-700 dark:text-gray-300' %>">palette</span>
+          <p class="<%= current_page?(admin_artworks_path) || current_page?(admin_projects_path) ? 'text-[#1152d4]' : 'text-gray-700 dark:text-gray-300' %> text-sm font-medium leading-normal">Artwork</p>
+        <% end %>
+
+        <%= link_to admin_contact_inquiries_path, class: "flex items-center gap-3 px-3 py-2 rounded-lg #{current_page?(admin_contact_inquiries_path) ? 'bg-[#1152d4]/10 dark:bg-[#1152d4]/20' : 'hover:bg-gray-100 dark:hover:bg-white/10'}" do %>
+          <span class="material-symbols-outlined <%= current_page?(admin_contact_inquiries_path) ? 'text-[#1152d4]' : 'text-gray-700 dark:text-gray-300' %>">mail</span>
+          <p class="<%= current_page?(admin_contact_inquiries_path) ? 'text-[#1152d4]' : 'text-gray-700 dark:text-gray-300' %> text-sm font-medium leading-normal">Messages</p>
+        <% end %>
+      </nav>
+    </div>
+
+    <!-- Logout -->
+    <div class="flex flex-col gap-1">
+      <%= button_to destroy_admin_user_session_path, method: :delete, class: "flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 w-full text-left" do %>
+        <span class="material-symbols-outlined text-gray-700 dark:text-gray-300">logout</span>
+        <p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Log Out</p>
+      <% end %>
+    </div>
+  </div>
+</aside>
