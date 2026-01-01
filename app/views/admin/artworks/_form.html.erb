@@ -47,11 +47,21 @@
 
       <!-- Project Selection -->
       <div class="w-full">
-        <%= f.label :project_id, "Project / Series", class: "text-base font-medium text-gray-800 dark:text-gray-200 pb-2 block" %>
-        <%= f.select :project_id,
-            options_from_collection_for_select(@projects, :id, :title, @artwork.project_id),
-            { prompt: "Select a project" },
-            class: "form-select w-full rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800/50 text-gray-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 text-base font-normal leading-normal" %>
+        <%= f.label :project_name, "Project / Series", class: "text-base font-medium text-gray-800 dark:text-gray-200 pb-2 block" %>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Type a project name. Select from existing projects or create a new one.</p>
+        <%= text_field_tag :project_name,
+            @artwork.project&.title,
+            list: "projects-datalist",
+            placeholder: "e.g., Food, Landscapes, Interiors",
+            class: "form-input w-full rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-primary focus:ring-primary h-12 px-4 text-base font-normal leading-normal" %>
+        <datalist id="projects-datalist">
+          <% @projects.each do |project| %>
+            <option value="<%= project.title %>">
+          <% end %>
+        </datalist>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          Existing projects: <%= @projects.map(&:title).join(', ') %>
+        </p>
       </div>
 
       <!-- Artwork Title -->
@@ -107,7 +117,7 @@
       <!-- Action Buttons -->
       <div class="flex flex-col sm:flex-row-reverse gap-3 pt-4 border-t border-gray-200 dark:border-gray-800">
         <%= f.submit (@artwork.new_record? ? 'Upload Artwork' : 'Update Artwork'),
-            class: "flex w-full sm:w-auto items-center justify-center rounded-lg h-11 px-6 bg-primary text-white text-base font-bold leading-normal tracking-wide shadow-sm hover:bg-primary/90 transition-colors cursor-pointer" %>
+            class: "flex w-full sm:w-auto items-center justify-center rounded-lg h-11 px-6 bg-blue-600 text-white text-base font-bold leading-normal tracking-wide shadow-sm hover:bg-blue-700 transition-colors cursor-pointer" %>
         <%= link_to "Cancel",
             admin_artworks_path,
             class: "flex w-full sm:w-auto items-center justify-center rounded-lg h-11 px-6 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-base font-bold leading-normal tracking-wide hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" %>

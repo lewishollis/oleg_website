@@ -12,6 +12,8 @@ class Admin::ArtworksController < Admin::BaseController
 
   def create
     @artwork = Artwork.new(artwork_params)
+    assign_project_from_name if params[:project_name].present?
+
     if @artwork.save
       redirect_to admin_artworks_path, notice: "Artwork created successfully."
     else
@@ -25,6 +27,8 @@ class Admin::ArtworksController < Admin::BaseController
   end
 
   def update
+    assign_project_from_name if params[:project_name].present?
+
     if @artwork.update(artwork_params)
       redirect_to admin_artworks_path, notice: "Artwork updated successfully."
     else
@@ -46,5 +50,12 @@ class Admin::ArtworksController < Admin::BaseController
 
   def artwork_params
     params.require(:artwork).permit(:title, :description, :medium, :dimensions, :year, :position, :project_id, :image, images: [])
+  end
+
+  def assign_project_from_name
+    project = Project.find_or_create_by(title: params[:project_name].strip) do |p|
+      p.published = true
+    end
+    @artwork.project = project
   end
 end

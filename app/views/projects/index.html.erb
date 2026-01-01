@@ -4,14 +4,20 @@
 </div>
 
 <!-- Filter Chips -->
-<div class="flex gap-2 p-3 overflow-x-auto">
-  <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary text-white pl-4 pr-4">
+<div class="flex gap-2 p-3 overflow-x-auto" data-controller="project-filter">
+  <%= link_to projects_path,
+      data: { action: "click->project-filter#filter" },
+      class: "flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 transition-all #{params[:project_id].blank? ? 'font-bold shadow-lg' : 'hover:bg-gray-300 dark:hover:bg-gray-600'}",
+      style: params[:project_id].blank? ? 'background-color: #f97316; color: #ffffff;' : 'background-color: #e5e7eb; color: #1f2937;' do %>
     <p class="text-sm font-medium leading-normal">All</p>
-  </button>
-  <% Project.published.by_position.each do |project| %>
-    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors pl-4 pr-4">
-      <p class="text-[#111318] dark:text-gray-300 text-sm font-medium leading-normal"><%= project.title %></p>
-    </button>
+  <% end %>
+  <% Project.published.with_artworks.by_position.each do |project| %>
+    <%= link_to projects_path(project_id: project.id),
+        data: { action: "click->project-filter#filter" },
+        class: "flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 transition-all #{params[:project_id].to_i == project.id ? 'font-bold shadow-lg' : 'hover:bg-gray-300 dark:hover:bg-gray-600'}",
+        style: params[:project_id].to_i == project.id ? 'background-color: #f97316; color: #ffffff;' : 'background-color: #e5e7eb; color: #1f2937;' do %>
+      <p class="text-sm font-medium leading-normal"><%= project.title %></p>
+    <% end %>
   <% end %>
 </div>
 
