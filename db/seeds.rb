@@ -11,12 +11,12 @@ end
 # Create admin user
 puts "Creating admin user..."
 admin = AdminUser.create!(
-  email: "admin@example.com",
-  password: "password123",
-  password_confirmation: "password123"
+  email: "adm1n70g1n@example.co.uk.com",
+  password: "0l3gPa55w0rd!",
+  password_confirmation: "0l3gPa55w0rd!"
 )
 puts "Admin user created: #{admin.email}"
-puts "Password: password123"
+puts "Password: 0l3gPa55w0rd!"
 
 # Create artist profile
 puts "\nCreating artist profile..."
@@ -128,8 +128,8 @@ puts "\n" + "=" * 50
 puts "Seed data created successfully!"
 puts "=" * 50
 puts "\nAdmin Login:"
-puts "Email: admin@example.com"
-puts "Password: password123"
+puts "Email: adm1n70g1n@example.co.uk.com"
+puts "Password: 0l3gPa55w0rd!"
 puts "\nYou can now:"
 puts "1. Start the server: bin/rails server"
 puts "2. Visit the site: http://localhost:3000"
