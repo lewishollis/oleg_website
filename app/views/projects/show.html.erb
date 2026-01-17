@@ -29,13 +29,13 @@
 
   <!-- Artwork Detail Modal -->
   <div data-artwork-modal-target="modal"
-       class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+       class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/10 backdrop-blur-sm p-4"
        data-action="click->artwork-modal#closeBackground">
     <div class="w-full max-w-6xl max-h-[90vh] bg-background-light dark:bg-background-dark rounded-xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
          data-action="click->artwork-modal#stopPropagation">
 
       <!-- Image Section -->
-      <div class="w-full md:w-2/3 flex-shrink-0 bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
+      <div class="w-full md:w-2/3 flex-shrink-0 bg-gray-200 dark:bg-gray-900 flex items-center justify-center">
         <img data-artwork-modal-target="image"
              class="w-full h-full object-contain max-h-[90vh]"
              alt="Artwork">
@@ -44,7 +44,7 @@
       <!-- Details Section -->
       <div class="relative w-full md:w-1/3 flex flex-col p-6 sm:p-8 overflow-y-auto">
         <button data-action="click->artwork-modal#close"
-                class="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                class="absolute top-4 right-4 text-gray-500 border-b dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
           <span class="material-symbols-outlined">close</span>
         </button>
 
