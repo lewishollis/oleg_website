@@ -33,7 +33,7 @@
 
       <div>
         <label class="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-1">Email</label>
-        <a href="mailto:<%= @inquiry.email %>" class="text-lg font-medium text-[#1152d4] hover:underline"><%= @inquiry.email %></a>
+        <%= mail_to @inquiry.email, @inquiry.email, class: "text-lg font-medium text-[#1152d4] hover:underline" %>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
     <div>
       <label class="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-2">Message</label>
       <div class="rounded-lg bg-gray-50 dark:bg-gray-800/50 p-6">
-        <p class="text-base text-gray-900 dark:text-white whitespace-pre-wrap"><%= @inquiry.message %></p>
+        <p class="text-base text-gray-900 dark:text-white whitespace-pre-wrap"><%= simple_format(h(@inquiry.message), {}, wrapper_tag: "span") %></p>
       </div>
     </div>
   </div>

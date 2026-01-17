@@ -22,7 +22,7 @@
                 <% end %>
               </div>
               <p class="text-sm text-gray-600 dark:text-gray-400 mb-2"><%= inquiry.email %></p>
-              <p class="text-base text-gray-700 dark:text-gray-300 line-clamp-2"><%= inquiry.message %></p>
+              <p class="text-base text-gray-700 dark:text-gray-300 line-clamp-2"><%= truncate(h(inquiry.message), length: 150) %></p>
             </div>
             <div class="ml-4 flex-shrink-0">
               <p class="text-sm text-gray-500 dark:text-gray-400"><%= time_ago_in_words(inquiry.created_at) %> ago</p>

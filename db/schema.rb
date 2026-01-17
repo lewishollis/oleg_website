@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_10_204039) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_17_113139) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -52,14 +52,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_10_204039) do
   end
 
   create_table "artists", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "artworks", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
     t.integer "year"
     t.string "dimensions"
@@ -68,26 +68,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_10_204039) do
     t.integer "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_artworks_on_position"
     t.index ["project_id"], name: "index_artworks_on_project_id"
   end
 
   create_table "contact_inquiries", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.string "subject"
-    t.text "message"
-    t.boolean "read"
+    t.text "message", null: false
+    t.boolean "read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_contact_inquiries_on_created_at"
+    t.index ["read"], name: "index_contact_inquiries_on_read"
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
     t.integer "position"
-    t.boolean "published"
+    t.boolean "published", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_projects_on_position"
+    t.index ["published"], name: "index_projects_on_published"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
