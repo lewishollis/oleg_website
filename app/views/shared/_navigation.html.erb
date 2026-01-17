@@ -5,7 +5,7 @@
   end
 %>
 
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 px-4 sm:px-10 py-4">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 px-4 sm:px-10 py-4" data-controller="mobile-menu">
   <div class="flex items-center gap-4 text-[#111318] dark:text-white">
     <div class="size-6 text-primary">
       <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -15,6 +15,7 @@
     <%= link_to Artist.instance.name.upcase, root_path, class: "text-[#111318] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]" %>
   </div>
 
+  <!-- Desktop Navigation -->
   <div class="hidden md:flex flex-1 justify-end">
     <div class="flex items-center gap-9">
       <%= link_to "Works", root_path,
@@ -27,7 +28,23 @@
   </div>
 
   <!-- Mobile Menu Button -->
-  <button class="md:hidden p-2">
+  <button class="md:hidden p-2" data-action="click->mobile-menu#toggle">
     <span class="material-symbols-outlined text-gray-800 dark:text-gray-200">menu</span>
   </button>
+
+  <!-- Mobile Menu Dropdown -->
+  <div class="hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-lg z-50 md:hidden"
+       data-mobile-menu-target="menu">
+    <nav class="flex flex-col py-4 px-6 space-y-4">
+      <%= link_to "Works", root_path,
+          class: "block py-2 #{nav_active?(root_path) ? 'text-primary font-bold' : 'text-gray-700 dark:text-gray-300'}",
+          data: { action: "click->mobile-menu#close" } %>
+      <%= link_to "About", about_path,
+          class: "block py-2 #{nav_active?(about_path) ? 'text-primary font-bold' : 'text-gray-700 dark:text-gray-300'}",
+          data: { action: "click->mobile-menu#close" } %>
+      <%= link_to "Contact", new_contact_path,
+          class: "block py-2 #{nav_active?(new_contact_path) ? 'text-primary font-bold' : 'text-gray-700 dark:text-gray-300'}",
+          data: { action: "click->mobile-menu#close" } %>
+    </nav>
+  </div>
 </header>
